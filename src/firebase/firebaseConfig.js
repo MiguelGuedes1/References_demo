@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";       // Importar o sistema de autenticaçao da Firebase
-import { getFirestore } from "firebase/firestore";       // Importar o sistema de base de dados da Firebase
+import { initializeApp } from "firebase/app"; // Inicializar o app Firebase
+import { getAuth } from "firebase/auth"; // Importar o sistema de autenticação do Firebase
+import { getFirestore } from "firebase/firestore"; // Importar o sistema de banco de dados Firestore do Firebase
 
 
 
@@ -17,8 +17,12 @@ const firebaseConfig = {
 
 
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)      // Exportar o sistema de autenticaçao da Firebase para poder usar em todos os componetes da minha aplicação
-export const db = getFirestore(app);      //  Exportar o sistema de base de dados da Firebase para poder usar em todos os componetes da minha aplicação
 
+// Inicializar o Firebase com as configurações fornecidas
+const app = initializeApp(firebaseConfig);
+
+// Exportar o sistema de autenticação para uso em todos os componentes da aplicação
+export const auth = getAuth(app); 
+
+// Exportar o sistema de banco de dados Firestore para armazenar e manipular dados diretamente na Firebase
+export const db = getFirestore(app);
