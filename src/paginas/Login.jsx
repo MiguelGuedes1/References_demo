@@ -14,9 +14,10 @@ const Login = () => {
             <p className='text-lg font-bold '>Invictus | References</p>
           </div>
           <div className="mt-12 flex flex-col items-center">
-            <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
+            <h1 className="text-2xl xl:text-3xl font-extrabold">Login</h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
+
                 <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
@@ -90,17 +91,11 @@ const Login = () => {
                     <circle cx="8.5" cy="7" r="4" />
                     <path d="M20 8v6M23 11h-6" />
                   </svg>
-                  <span className="ml-3">Sign Up</span>
+                  <span className="ml-3">Let´s go</span>
                 </button>
-                <p className="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by templatana's
-                  <a href="#" className="border-b border-gray-500 border-dotted">
-                    Terms of Service
-                  </a>
-                  and its
-                  <a href="#" className="border-b border-gray-500 border-dotted">
-                    Privacy Policy
-                  </a>
+
+                <p className="mt-6 text-xs text-gray-600 text-center hover:underline">
+                  <a href="#"> Dont have an account ? <span className='font-bold'>Register</span> </a>
                 </p>
               </div>
 
