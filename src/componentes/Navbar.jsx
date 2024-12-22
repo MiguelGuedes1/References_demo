@@ -1,122 +1,179 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Menu, X } from "lucide-react"; 
+import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const NavBar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const navigate = useNavigate()
+
+  const navegar_para_login = () => {
+    navigate('/login')
+  }
 
   return (
-    <div>
-      <nav className="relative bg-white shadow dark:bg-gray-800">
-        <div className="container px-6 py-4 mx-auto">
-          <div className="lg:flex lg:items-center lg:justify-between">
-            <div className="flex items-center justify-between">
-              <p className="text-white text-sm md:text-xl font-semibold">
-                Invictus | References
-              </p>
+    <nav className="bg-gray-800">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="relative flex h-16 items-center justify-between">
+         
+          {/* Título "Invictus | References" */}
+          <div className="flex items-center">
+            <p className="text-white font-bold hidden sm:block">Invictus | References</p>
+          </div>
 
-              {/* Mobile menu button */}
-              <div className="flex lg:hidden">
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  type="button"
-                  className="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
-                  aria-label="toggle menu"
-                >
-                  {isOpen ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 8h16M4 16h16"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Mobile Menu */}
-            <div
-              className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center justify-center ${
-                isOpen
-                  ? "translate-x-0 opacity-100"
-                  : "opacity-0 -translate-x-full"
-              }`}
-            >
-              <div className="flex flex-col items-center -mx-6 lg:flex-row lg:items-center lg:mx-8">
-                <a
-                  href="#"
-                  className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  Home
-                </a>
-                <a
-                  href="#About"
-                  className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  About
-                </a>
-                <a
-                  href="#Consultores"
-                  className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  Consultores
-                </a>
-                <a
-                  href="#"
-                  className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  DashBoard
-                </a>
-              </div>
-
-              <div className="flex flex-col items-center mt-4 lg:mt-0">
-                <button
-                  type="button"
-                  className="flex items-center focus:outline-none"
-                  aria-label="toggle profile dropdown"
-                >
-                  <div className="w-10 h-10 overflow-hidden border-2 border-gray-400 rounded-full">
-                    <img
-                      src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                      className="object-cover w-full h-full"
-                      alt="avatar"
-                    />
-                  </div>
-                </button>
-                <h3 className="mt-2 text-gray-700 dark:text-gray-200 text-center lg:hidden">
-                  Khatab wedaa
-                </h3>
-              </div>
+          {/* Seção central para os links de navegação */}
+          <div className="flex-grow flex justify-center">
+            <div className="flex space-x-4 hidden sm:flex">
+              {/* Navigation Links */}
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                aria-current="page"
+              >
+                Home
+              </a>
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                About
+              </a>
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                Our Brokers
+              </a>
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                Calendar
+              </a>
             </div>
           </div>
-        </div>
-      </nav>
 
-   
-    </div>
+          {/* Seção da direita (Menu dropdown do usuário) */}
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden ">
+
+            {/* Profile dropdown */}
+            <div className="relative ml-3">
+              <div>
+                <button
+                  type="button"
+                  className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  id="user-menu-button"
+                  aria-expanded={userMenuOpen ? "true" : "false"}
+                  aria-haspopup="true"
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                >
+                  <span className="absolute -inset-1.5"></span>
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    className="size-8 rounded-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                </button>
+              </div>
+
+              {/* Dropdown menu */}
+              {userMenuOpen && (
+                <div
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none "
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                  tabIndex="-1"
+                >
+                  <span className="block px-4 py-2 text-sm text-gray-700 font-extrabold">Miguel</span>
+
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-1"
+                  >
+                    References sent
+                  </a>
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-sm text-gray-700"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-2"
+                  >
+                    Sign out
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <button onClick={navegar_para_login} class="relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            Register / Login
+            </span>
+          </button>
+
+          {/* Botão de abrir o menu mobile */}
+          <div className="sm:hidden absolute inset-y-0 left-0 flex items-center pl-2">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-controls="mobile-menu"
+              aria-expanded={mobileMenuOpen ? "true" : "false"}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <span className="sr-only">Open main menu</span>
+              {!mobileMenuOpen ? (
+                <Menu className="w-6 h-6 text-gray-400" />
+              ) : (
+                <X className="w-6 h-6 text-gray-400" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu, show/hide based on menu state */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden" id="mobile-menu">
+          <div className="space-y-1 px-2 pb-3 pt-2 text-center">
+            {/* Título "Invictus | References" no meio quando o menu está aberto */}
+            <p className="text-white font-bold mb-8 mt-4">Invictus | References</p>
+            {/* Navigation Links */}
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white "
+              aria-current="page"
+            >
+              Home
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              About
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Our Brokers
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+            >
+              Calendar
+            </a>
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 
-export default Navbar;
+export default NavBar;
