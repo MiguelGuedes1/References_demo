@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { Menu, X } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
+import AuthContext from '../contexts/AuthContext';
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const navigate = useNavigate()
+
+  const { user, loading,handleLogout } = useContext(AuthContext);
 
   const navegar_para_login = () => {
     navigate('/login')
@@ -20,6 +23,8 @@ const NavBar = () => {
           <div className="flex items-center">
             <p className="text-white font-bold hidden sm:block">Invictus | References</p>
           </div>
+
+
 
           {/* Seção central para os links de navegação */}
           <div className="flex-grow flex justify-center">
@@ -53,69 +58,81 @@ const NavBar = () => {
             </div>
           </div>
 
-          {/* Seção da direita (Menu dropdown do usuário) */}
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0  ">    {/* Colocas hidden quando o usuario nao estiver logado  */}
 
-            {/* Profile dropdown */}
-            <div className="relative ml-3">
-              <div>
-                <button
-                  type="button"
-                  className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  id="user-menu-button"
-                  aria-expanded={userMenuOpen ? "true" : "false"}
-                  aria-haspopup="true"
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                >
-                  <span className="absolute -inset-1.5"></span>
-                  <span className="sr-only">Open user menu</span>
-                  <img
-                    className="size-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </button>
-              </div>
 
-              {/* Dropdown menu */}
-              {userMenuOpen && (
-                <div
-                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none "
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu-button"
-                  tabIndex="-1"
-                >
-                  <span className="block px-4 py-2 text-sm text-gray-700 font-extrabold">Miguel</span>
+              {user ? (
+                // Se o usuário estiver logado, mostra o menu de perfil
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {/* Profile dropdown */}
+                  <div className="relative ml-3">
+                    <div>
+                      <button
+                        type="button"
+                        className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                        id="user-menu-button"
+                        aria-expanded={userMenuOpen ? "true" : "false"}
+                        aria-haspopup="true"
+                        onClick={() => setUserMenuOpen(!userMenuOpen)}
+                      >
+                        <span className="absolute -inset-1.5"></span>
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="size-8 rounded-full"
+                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt="User Profile"
+                        />
+                      </button>
+                    </div>
 
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex="-1"
-                    id="user-menu-item-1"
-                  >
-                    References sent
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex="-1"
-                    id="user-menu-item-2"
-                  >
-                    Sign out
-                  </a>
+                    {/* Dropdown menu */}
+                    {userMenuOpen && (
+                      <div
+                        className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="user-menu-button"
+                        tabIndex="-1"
+                      >
+                        <span className="block px-4 py-2 text-sm text-gray-700 font-extrabold">Miguel</span>
+
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-1"
+                        >
+                          References sent
+                        </a>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-sm text-gray-700"
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-2"
+                          onClick={handleLogout}
+                        >
+                          Sign out
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
+              ) : (
+                // Se o usuário não estiver logado, mostra o botão de login
+  <button
+    onClick={navegar_para_login}
+    className="relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
+  >
+    <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+      Register / Login
+    </span>
+  </button>
+)}
 
-          <button onClick={navegar_para_login} class=" hidden relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-            Register / Login
-            </span>
-          </button>
+          
+
+         
 
           {/* Botão de abrir o menu mobile */}
           <div className="sm:hidden absolute inset-y-0 left-0 flex items-center pl-2">

@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+
 
 const Header = () => {
+
+
+
+
   return (
+
+
+
     <div>
       <header className=" pt-14 md:pt-5 bg-white shadow dark:bg-gray-800 min-h-screen flex items-center justify-center ">
         <div className="container flex flex-col px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">

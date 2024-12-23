@@ -7,7 +7,7 @@ import Registo from './paginas/Registo'
 import Login_Admin from './paginas/Login_Admin'
 import Consultores from './componentes/Consultores'
 import DetalhesConsultor from './paginas/DetalhesConsultor'
-import { AuthProvider } from './contexts/AuthContext'  // Caminho correto
+import { AuthProvider } from './contexts/AuthContext'  
 
 function App() {
   return (
