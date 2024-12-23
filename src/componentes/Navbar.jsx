@@ -26,20 +26,20 @@ const NavBar = () => {
             <div className="flex space-x-4 hidden sm:flex">
               {/* Navigation Links */}
               <a
-                href="#"
+                href="/"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                 aria-current="page"
               >
                 Home
               </a>
               <a
-                href="#"
+                href="#About"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
                 About
               </a>
               <a
-                href="#"
+                href="#Consultores"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
                 Our Brokers
@@ -54,7 +54,7 @@ const NavBar = () => {
           </div>
 
           {/* Seção da direita (Menu dropdown do usuário) */}
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden ">
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0  ">    {/* Colocas hidden quando o usuario nao estiver logado  */}
 
             {/* Profile dropdown */}
             <div className="relative ml-3">
@@ -111,7 +111,7 @@ const NavBar = () => {
             </div>
           </div>
 
-          <button onClick={navegar_para_login} class="relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+          <button onClick={navegar_para_login} class=" hidden relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
             <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
             Register / Login
             </span>
@@ -145,20 +145,20 @@ const NavBar = () => {
             <p className="text-white font-bold mb-8 mt-4">Invictus | References</p>
             {/* Navigation Links */}
             <a
-              href="#"
+              href="/"
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white "
               aria-current="page"
             >
               Home
             </a>
             <a
-              href="#"
+              href="#About"
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
             >
               About
             </a>
             <a
-              href="#"
+              href="#Consultores"
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
             >
               Our Brokers
