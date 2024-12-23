@@ -4,16 +4,15 @@ import { auth } from '../firebase/firebaseConfig';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { db } from '../firebase/firebaseConfig';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Registo = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState(null); 
-  const [successMsg, setSuccessMsg] = useState(null); 
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   // Hook de autenticação Firebase para criar um usuário com email e senha
   const [createUserWithEmailAndPassword, userCredential, loading, error] =
@@ -22,35 +21,30 @@ const Registo = () => {
   // Função para validar os dados de entrada antes de enviar
   const validateInputs = () => {
     if (!username || !email || !password || !confirmPassword) {
-      return 'All fields are required.'; 
+      return 'All fields are required.';
     }
     if (password.length < 6) {
-      return 'Password must be at least 6 characters long.'; 
+      return 'Password must be at least 6 characters long.';
     }
     if (password !== confirmPassword) {
-      return 'Passwords do not match.'; 
+      return 'Passwords do not match.';
     }
-    return null; 
+    return null;
   };
 
-
-
-
-  // INICIO DA FUNÇAO PARA CRIAR UTILIZADOR NO FIREBASE E GUARDAR DADOS NO FIRESTORE
-
+  // Função para criar o usuário no Firebase e armazenar no Firestore
   const criarUtilizador = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    setErrorMsg(null); // Reseta a mensagem de erro antes de começar
-    setSuccessMsg(null); // Reseta a mensagem de sucesso antes de começar
-
-    
     // Validação dos campos de entrada
     const validationError = validateInputs();
     if (validationError) {
-      setErrorMsg(validationError); // Exibe a mensagem de erro se algo estiver errado
+      toast.error(validationError); // Exibe mensagem de erro
       return;
     }
+
+    // Exibe a notificação inicial com "Creating user..."
+    const toastId = toast.loading('Creating user...');
 
     try {
       // Criação do usuário no Firebase com email e senha
@@ -64,33 +58,30 @@ const Registo = () => {
           createdAt: serverTimestamp(), // Armazena o timestamp de criação
         });
 
-        // Exibe a mensagem de sucesso
-        setSuccessMsg('User created successfully!');
+        // Atualiza a notificação para "User created successfully!"
+        toast.update(toastId, {
+          render: 'User created successfully!',
+          type: 'success',
+          isLoading: false,
+          autoClose: 2000,
+        });
+
+        // Redireciona para a página de login após 2 segundos
         setTimeout(() => {
-          navigate('/login')
+          navigate('/login');
         }, 2000);
       }
     } catch (err) {
-      console.error('Error creating user:', err); 
-      setErrorMsg('Failed to create user. Please try again.'); 
+      console.error('Error creating user:', err);
+      toast.update(toastId, {
+        render: 'Failed to create user. Please try again.',
+        type: 'error',
+        isLoading: false,
+        autoClose: 5000,
+      });
     }
-  }
+  };
 
-    // FIM  DA FUNÇAO PARA CRIAR UTILIZADOR NO FIREBASE E GUARDAR DADOS NO FIRESTORE 
-
-
-
-
-
-  
-  useEffect(() => {
-    if (error) {
-      setErrorMsg(error.message || 'Failed to create user. Please try again.')
-    }
-  }, [error]); // Esse efeito só será acionado quando a variável `error` mudar
-
-  
-  
   const handleSubmit = (e) => {
     criarUtilizador(e); // Chama a função para criar o usuário
     // Limpa os campos após a submissão
@@ -99,14 +90,6 @@ const Registo = () => {
     setPassword('');
     setConfirmPassword('');
   };
-
-  // Hook de efeito para limpar as mensagens de erro e sucesso quando o componente for desmontado
-  useEffect(() => {
-    return () => {
-      setErrorMsg(null); // Reseta a mensagem de erro
-      setSuccessMsg(null); // Reseta a mensagem de sucesso
-    };
-  }, []); // Esse efeito será acionado apenas uma vez, quando o componente for desmontado
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -117,8 +100,6 @@ const Registo = () => {
           </div>
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Register</h1>
-
-     
 
             <div className="w-full flex-1 mt-8">
               <div className="mx-auto max-w-xs">
@@ -164,21 +145,13 @@ const Registo = () => {
                     required
                   />
 
-                    {errorMsg && (
-                      <div className="text-red-500 text-sm text-center mt-2 flex justify-center items-center">{errorMsg}</div>
-                    )}
-                    {successMsg && (
-                      <div className="text-green-500 text-sm text-center mt-2 flex justify-center items-center">{successMsg}</div>
-                    )}
-
-
                   <button
                     type="submit"
                     className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                    disabled={loading || successMsg}
+                    disabled={loading}
                   >
                     <span className="ml-3">
-                      {loading ? 'Creating account...' : 'Create account'}
+                      Create Account
                     </span>
                   </button>
                 </form>
@@ -203,6 +176,7 @@ const Registo = () => {
           ></div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const NavBar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const navigate = useNavigate()
 
-  const { user, loading,handleLogout } = useContext(AuthContext);
+  const { user, loading,handleLogout,userDetails } = useContext(AuthContext);
 
   const navegar_para_login = () => {
     navigate('/login')
@@ -77,7 +77,7 @@ const NavBar = () => {
                         <span className="absolute -inset-1.5"></span>
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="size-8 rounded-full"
+                          className="size-10 rounded-full"
                           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                           alt="User Profile"
                         />
@@ -93,7 +93,7 @@ const NavBar = () => {
                         aria-labelledby="user-menu-button"
                         tabIndex="-1"
                       >
-                        <span className="block px-4 py-2 text-sm text-gray-700 font-extrabold">Miguel</span>
+                        <span className="block px-4 py-2 text-sm text-gray-700 font-extrabold">{userDetails.username || 'Usuário'}</span>
 
                         <a
                           href="#"
