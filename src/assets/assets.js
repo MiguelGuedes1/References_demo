@@ -7,6 +7,8 @@ import consultor_6 from './consultor_6.jpg';
 import consultor_7 from './consultor_7.jpg';
 import consultor_8 from './consultor_8.jpg';
 import login_wallpaper from './login_wallpaper.webp';
+import videoo_fundo from './videoo_fundo.mp4'
+import logo_invictus_semfundo_1 from './logo_invictus_semfundo_1.png';
 
 
 
@@ -22,6 +24,8 @@ const assets = {
   consultor_7,
   consultor_8,
   login_wallpaper,
+  videoo_fundo,
+  logo_invictus_semfundo_1,
 
 }
 
