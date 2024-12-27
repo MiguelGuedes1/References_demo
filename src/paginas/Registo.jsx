@@ -7,7 +7,7 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import assets from "../assets/assets";
-import { Home, User, DollarSign } from 'lucide-react';
+import { Building, Handshake, Euro } from 'lucide-react';
 
 const Registo = () => {
   const [username, setUsername] = useState('');
@@ -87,27 +87,29 @@ const Registo = () => {
 
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center px-4 sm:px-0">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 flex-col sm:flex-row">
-        {/* Info Section (acima no mobile) */}
+
+        {/* Info Section  */}
         <div className="w-full sm:w-1/2 text-center flex flex-col justify-center items-center p-8 sm:p-12">
           <h1 className="text-xl sm:text-2xl font-bold text-indigo-700 mb-4">Welcome to Invictus | References</h1>
           <p className="text-sm md:text-sm text-gray-800 mb-4">
-            Join our platform and connect with trusted real estate consultants. By registering, you can start sharing property references and earn commissions by closing deals.
+            Experience a professional way to connect properties for sale with top-tier consultants. Hundreds of users have already joined, submitted property references, and started earning commissions by closing successful deals.
           </p>
-          <div className="flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center space-y-4 mt-5">
             <div className="flex items-center space-x-2">
-              <Home className="text-indigo-600 w-6 h-6 sm:w-8 sm:h-8" />
-              <p className="text-gray-700 font-medium text-sm sm:text-base">Property Listings</p>
+              <Building className="text-indigo-600 w-6 h-6 sm:w-8 sm:h-8" />
+              <p className="text-gray-700 font-medium text-sm sm:text-base">Property Portfolio</p>
             </div>
             <div className="flex items-center space-x-2">
-              <User className="text-indigo-600 w-6 h-6 sm:w-8 sm:h-8" />
+              <Handshake className="text-indigo-600 w-6 h-6 sm:w-8 sm:h-8" />
               <p className="text-gray-700 font-medium text-sm sm:text-base">Trusted Consultants</p>
             </div>
             <div className="flex items-center space-x-2">
-              <DollarSign className="text-indigo-600 w-6 h-6 sm:w-8 sm:h-8" />
-              <p className="text-gray-700 font-medium text-sm sm:text-base">Earn Commissions</p>
+              <Euro className="text-indigo-600 w-6 h-6 sm:w-8 sm:h-8" />
+              <p className="text-gray-700 font-medium text-sm sm:text-base">Earn Attractive Commissions</p>
             </div>
           </div>
         </div>
+
 
         {/* Form Section (abaixo no mobile) */}
         <div className="w-full sm:w-1/2 xl:w-5/12 p-8 sm:p-12 flex flex-col justify-center">
@@ -116,13 +118,13 @@ const Registo = () => {
           </div>
 
           <div className="mt-8 flex flex-col items-center">
-            <h1 className="text-3xl xl:text-4xl font-extrabold text-black">Register</h1>
+            <h1 className="text-3xl xl:text-4xl font-extrabold text-indigo-700">Register</h1>
 
             <div className="w-full flex-1 mt-8">
               <div className="mx-auto max-w-xs">
                 <form onSubmit={handleSubmit}>
                   <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
+                    className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-[13px] focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
                     type="text"
                     placeholder="Choose a Username"
                     value={username}
@@ -130,7 +132,7 @@ const Registo = () => {
                     required
                   />
                   <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
+                    className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-[13px] focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
                     type="email"
                     placeholder="Your Email"
                     value={email}
@@ -138,7 +140,7 @@ const Registo = () => {
                     required
                   />
                   <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
+                    className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-[13px] focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -146,7 +148,7 @@ const Registo = () => {
                     required
                   />
                   <input
-                    className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
+                    className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-[13px] focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
                     type="password"
                     placeholder="Confirm Password"
                     value={confirmPassword}
@@ -156,7 +158,7 @@ const Registo = () => {
 
                   <button
                     type="submit"
-                    className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                    className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full text-sm py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     disabled={loading}
                   >
                     <span className="ml-3">
