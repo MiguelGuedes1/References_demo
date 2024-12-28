@@ -54,12 +54,14 @@ const DetalhesConsultor = () => {
             Email_utilizador: userDetails.email,
             nomeReferencia,
             tipoImovel,
-            Estado_Da_referencia:"Referencia recebida e em analise",
+            Estado_Da_referencia:"Recebida",
             localizacao,
             contacto,
             mensagem,
             Referencia_para_Consultor: consultor.nome, // Nome do consultor ao qual a referência foi enviada
             createdAt: new Date(), // Data do envio
+            userId: userDetails.uid,  // Aqui você salva o ID do usuário que criou a referência
+
         });
         console.log("Documento salvo com ID:", docRef.id);
 
