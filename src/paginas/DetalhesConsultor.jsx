@@ -1,10 +1,14 @@
-import { useParams } from 'react-router-dom';
-import assets from "../assets/assets";
-import { useNavigate } from 'react-router-dom';
-import Footer from '../componentes/Footer';
-import React,{useEffect,useState} from 'react';
-import { Phone, Mail, MapPinHouse } from 'lucide-react';
-import { collection, addDoc } from "firebase/firestore"; // Importa funções necessárias do Firestore
+import { useParams } from 'react-router-dom'
+import assets from "../assets/assets"
+import { useNavigate } from 'react-router-dom'
+import Footer from '../componentes/Footer'
+import React,{useEffect,useState,useContext } from 'react'
+import { Phone, Mail, MapPinHouse } from 'lucide-react'
+import { collection, addDoc } from "firebase/firestore" // Importa funções necessárias do Firestore
+import { auth } from '../firebase/firebaseConfig'
+import { db } from '../firebase/firebaseConfig'
+import AuthContext from '../contexts/AuthContext'
+import { ToastContainer, toast } from 'react-toastify'
 
 const DetalhesConsultor = () => {
 
@@ -17,14 +21,68 @@ const DetalhesConsultor = () => {
   const [contacto,setContacto] = useState("")
   const [mensagem,setMensagem] = useState("")
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(`Nome referencia : ${nomeReferencia}`)
-    console.log(`Tipo Imovel : ${tipoImovel}`)
-    console.log(`Localização : ${localizacao}`)
-    console.log(`Contacto : ${contacto}`)
-    console.log(`Mensagem : ${mensagem}`)
-  }
+  const { user, loading, handleLogout, userDetails } = useContext(AuthContext)
+
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+        toast.error("Por Favor efectue o Login para enviar uma referência")
+        return;
+    }
+
+    // Validação dos campos do formulário
+    if (
+        !nomeReferencia.trim() ||
+        !tipoImovel.trim() ||
+        !localizacao.trim() ||
+        !contacto.trim() ||
+        !mensagem.trim()
+    ) {
+        toast.error("Por Favor preencha todos os campos")
+        return;
+    }
+
+    const toastId = toast.loading('A enviar referência...');
+
+    try {
+        // Salvar dados no Firestore
+        const docRef = await addDoc(collection(db, "references"), {
+            Referencia_enviada_por: userDetails.username, // Username do usuario que envia a referência
+            Email_utilizador: userDetails.email,
+            nomeReferencia,
+            tipoImovel,
+            Estado_Da_referencia:"Referencia recebida e em analise",
+            localizacao,
+            contacto,
+            mensagem,
+            Referencia_para_Consultor: consultor.nome, // Nome do consultor ao qual a referência foi enviada
+            createdAt: new Date(), // Data do envio
+        });
+        console.log("Documento salvo com ID:", docRef.id);
+
+        // Resetar formulário após envio
+        setNomeReferencia("");
+        setTipoImovel("");
+        setLocalizacao("");
+        setContacto("");
+        setMensagem("");
+        
+        toast.update(toastId, {
+        render: 'Referencia enviada, verifique o seu status na dashboard',
+        type: 'success',
+        isLoading: false,
+        autoClose: 4000,
+        })
+
+    } catch (error) {
+        console.error("Erro ao enviar referência:", error);
+        alert("Erro ao enviar a referência. Tente novamente mais tarde.");
+    }
+};
+
 
 
 
@@ -292,6 +350,8 @@ const DetalhesConsultor = () => {
                 </div>
             </div>
         </section>
+
+        <ToastContainer />
 
 
         <Footer/>

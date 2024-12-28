@@ -1,6 +1,6 @@
 import { useState,useContext } from "react";
 import { Menu, X } from "lucide-react"; 
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link} from "react-router-dom";
 import AuthContext from '../contexts/AuthContext';
 
 const NavBar = () => {
@@ -13,6 +13,8 @@ const NavBar = () => {
   const navegar_para_login = () => {
     navigate('/login')
   }
+
+
 
   return (
     <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-lg shadow-lg">
@@ -95,15 +97,16 @@ const NavBar = () => {
                       >
                         <span className="block px-4 py-2 text-sm text-gray-700 font-extrabold">{userDetails.username || 'Usuário'}</span>
 
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="user-menu-item-1"
-                        >
-                          References sent
-                        </a>
+                        <Link
+                        to="/referencesSent" 
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                        tabIndex="-1"
+                        id="user-menu-item-1"
+                      >
+                        References sent
+                        </Link>
+
                         <a
                           href="#"
                           className="block px-4 py-2 text-sm text-gray-700"
