@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import { Play, Pause } from "lucide-react";
 import assets from "../assets/assets";
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 const Header = () => {
   const videoRef = useRef(null)
@@ -13,7 +15,12 @@ const Header = () => {
       videoRef.current.play(); // Reproduz o vídeo
     }
     setIsPlaying(!isPlaying); // Alterna o estado
-  };
+  }
+
+    useEffect(() => {
+      Aos.init({duration:1000})
+    },[])
+
 
   return (
     <div className="relative min-h-screen">
@@ -50,7 +57,7 @@ const Header = () => {
       </div>
 
       {/* Conteúdo sobreposto */}
-      <header className="relative z-10 pt-14 md:pt-5 flex items-center justify-center min-h-screen">
+      <header data-aos="fade-up" className="relative z-10 pt-14 md:pt-5 flex items-center justify-center min-h-screen">
         <div className="container flex flex-col px-6 py-10 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center text-white">
           <div className="w-full lg:w-2/3">
             <div className="lg:max-w-2xl">
@@ -103,7 +110,7 @@ const Header = () => {
                 className="relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
               >
                 <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Meet our Brokers
+                Send a Reference
                 </span>
               </a>
 

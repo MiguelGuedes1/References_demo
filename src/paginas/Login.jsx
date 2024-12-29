@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/firebaseConfig';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -8,6 +8,8 @@ import { User, Home,Euro } from 'lucide-react';
 import assets from "../assets/assets";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig'
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 
 const Login = () => {
@@ -81,13 +83,19 @@ const Login = () => {
       toast.error('Email or Password are incorrect, please try again');
       setPassword('');
     }
-  };
+  }
+
+       useEffect(() => {
+            Aos.init({duration:1000})
+          },[])
   
 
 
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 flex justify-center items-center px-4 sm:px-0">
+
+
+    <div data-aos="fade-up"  className="min-h-screen bg-white text-gray-900 flex justify-center items-center px-4 sm:px-0">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow-lg sm:rounded-lg flex justify-center flex-1 flex-col sm:flex-row">
         {/* Info Section */}
         <div className="w-full sm:w-1/2 text-center flex flex-col justify-center items-center p-8 sm:p-12 ">

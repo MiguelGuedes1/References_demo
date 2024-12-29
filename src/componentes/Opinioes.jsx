@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState,useEffect } from "react";
 import foto_opiniao_1 from '../assets/foto_opiniao_1.jpg';
 import foto_opiniao_2 from '../assets/foto_opiniao_2.avif';
 import foto_opiniao_3 from '../assets/foto_opiniao_3.jpg';
@@ -11,6 +11,8 @@ import foto_opiniao_9 from '../assets/foto_opiniao_9.avif';
 import foto_opiniao_10 from '../assets/foto_opiniao_10.jpg';
 import foto_opiniao_11 from '../assets/foto_opiniao_11.avif';
 import foto_opiniao_12 from '../assets/foto_opiniao_12.avif';
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 
 const Opinioes = () => {
@@ -106,22 +108,24 @@ const Opinioes = () => {
         'Invictus made it so easy to earn a commission by referring a property. Great platform!',
     
     },
-      
+  ]
 
-  ];
+  useEffect(() => {
+    Aos.init({duration:1000})
+  },[])
 
   return (
-    <section id="Opinioes" className="py-40 bg-slate-900">
+    <section data-aos="fade-up" id="Opinioes" className="py-40 bg-slate-900">
       <div className="max-w-6xl mx-8 md:mx-10 lg:mx-20 xl:mx-auto">
         <div className="transition duration-500 ease-in-out transform scale-100 translate-x-0 translate-y-0 opacity-100">
           <div className="mb-12 space-y-5 md:mb-16 md:text-center">
-            <div className="inline-block px-3 py-1 text-sm font-semibold text-indigo-100 rounded-lg md:text-center text-cn bg-[#202c47] bg-opacity-60 hover:cursor-pointer hover:bg-opacity-40">
+            <div data-aos="fade-right" className="inline-block px-3 py-1 text-sm font-semibold text-indigo-100 rounded-lg md:text-center text-cn bg-[#202c47] bg-opacity-60 hover:cursor-pointer hover:bg-opacity-40">
               Words from Our Clients
             </div>
-            <h1 className="mb-5 text-3xl font-semibold text-white md:text-center md:text-5xl">
+            <h1 data-aos="fade-left" className="mb-5 text-3xl font-semibold text-white md:text-center md:text-5xl">
               It's not just us.
             </h1>
-            <p className="text-xl text-gray-100 md:text-center md:text-2xl">
+            <p data-aos="fade-right" className="text-xl text-gray-100 md:text-center md:text-2xl">
               Here's what others have to say about us.
             </p>
           </div>

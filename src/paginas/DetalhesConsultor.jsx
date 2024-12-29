@@ -9,6 +9,8 @@ import { auth } from '../firebase/firebaseConfig'
 import { db } from '../firebase/firebaseConfig'
 import AuthContext from '../contexts/AuthContext'
 import { ToastContainer, toast } from 'react-toastify'
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 const DetalhesConsultor = () => {
 
@@ -29,7 +31,7 @@ const DetalhesConsultor = () => {
     e.preventDefault();
 
     if (!user) {
-        toast.error("Por Favor efectue o Login para enviar uma referência")
+        toast.error("Please login to send a reference")
         return;
     }
 
@@ -41,11 +43,11 @@ const DetalhesConsultor = () => {
         !contacto.trim() ||
         !mensagem.trim()
     ) {
-        toast.error("Por Favor preencha todos os campos")
+        toast.error("Please fill in all fields")
         return;
     }
 
-    const toastId = toast.loading('A enviar referência...');
+    const toastId = toast.loading('Sending reference...');
 
     try {
         // Salvar dados no Firestore
@@ -54,7 +56,7 @@ const DetalhesConsultor = () => {
             Email_utilizador: userDetails.email,
             nomeReferencia,
             tipoImovel,
-            Estado_Da_referencia:"Recebida",
+            Estado_Da_referencia:"Received",
             localizacao,
             contacto,
             mensagem,
@@ -73,17 +75,17 @@ const DetalhesConsultor = () => {
         setMensagem("");
         
         toast.update(toastId, {
-        render: 'Referencia enviada, verifique o seu status na dashboard',
+        render: 'Referral sent, check your status in referral sent on your profile',
         type: 'success',
         isLoading: false,
         autoClose: 4000,
         })
 
     } catch (error) {
-        console.error("Erro ao enviar referência:", error);
-        alert("Erro ao enviar a referência. Tente novamente mais tarde.");
+        
+        alert("Error sending reference. Please try again later.");
     }
-};
+}
 
 
 
@@ -171,13 +173,18 @@ const DetalhesConsultor = () => {
   }, []); // O array vazio significa que isso será executado uma vez, quando o componente for montado
 
 
+       useEffect(() => {
+              Aos.init({duration:2000})
+            },[])
+
+
 
   return (
 
 
     <div className="consultor-details">
 
-        <section class="bg-white dark:bg-gray-900">
+        <section data-aos="fade-down"  class="bg-white dark:bg-gray-900">
             <div class="container px-6 py-10 mx-auto">
                 <div class="lg:-mx-6 lg:flex lg:items-center">
                     <img class="object-cover object-center lg:w-1/2 lg:mx-6 w-full h-96 rounded-lg md:h-[35rem] lg:h-[46rem]" src={consultor.imagem} target="blank" alt=""/>
@@ -185,16 +192,16 @@ const DetalhesConsultor = () => {
                     <div class="mt-8 lg:w-1/2 lg:px-6 lg:mt-0">
                     
 
-                        <h1 class="text-2xl font-semibold text-gray-800 dark:text-white lg:text-3xl lg:w-96">
+                        <h1 data-aos="fade-right" class="text-2xl font-semibold text-gray-800 dark:text-white lg:text-3xl lg:w-96">
                             Invictus | References
                         </h1>
 
-                        <p class="max-w-lg mt-6 text-gray-500 dark:text-gray-400 ">
+                        <p data-aos="fade-left"  class="max-w-lg mt-6 text-gray-500 dark:text-gray-400 ">
                         {consultor.descricao}
                         </p>
 
-                        <h3 class="mt-6 text-lg font-medium text-blue-500">{consultor.nome}</h3>
-                        <p class="text-gray-600 dark:text-gray-300">{consultor.funcao}</p>
+                        <h3 data-aos="fade-right" class="mt-6 text-lg font-medium text-blue-500">{consultor.nome}</h3>
+                        <p data-aos="fade-right" class="text-gray-600 dark:text-gray-300">{consultor.funcao}</p>
 
                         <div class="flex items-center justify-between mt-12 lg:justify-start">
                         <button   onClick={() => navigate('/')} type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Home</button>
@@ -209,7 +216,7 @@ const DetalhesConsultor = () => {
                                         {/*   INFO FORMULARIO */}
 
 
-        <section className="py-24">
+        <section data-aos="zoom-in-up" data-aos-duration="2500" className="py-24">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 grid-cols-1">
                     <div className="lg:mb-0 mb-10">

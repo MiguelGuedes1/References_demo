@@ -1,8 +1,10 @@
-import { useState,useContext } from "react";
+import { useState,useContext, useEffect } from "react";
 import { Menu, X } from "lucide-react"; 
 import { useNavigate,Link} from "react-router-dom";
 import AuthContext from '../contexts/AuthContext';
 import assets from "../assets/assets";
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,16 +17,20 @@ const NavBar = () => {
     navigate('/login')
   }
 
+  useEffect(() => {
+    Aos.init({duration:1000})
+  },[])
+
 
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-lg shadow-lg">
+    <nav  className="fixed top-0 left-0 w-full z-20 bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-lg shadow-lg">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
          
           {/* Título "Invictus | References" */}
           <div className="flex items-center">
-            <p className="text-white font-bold hidden sm:block">Invictus | References</p>
+            <p data-aos="fade-down" className="text-white font-bold hidden sm:block">Invictus | References</p>
           </div>
 
 
@@ -33,26 +39,26 @@ const NavBar = () => {
           <div className="flex-grow flex justify-center">
             <div className="flex space-x-4 hidden sm:flex">
               {/* Navigation Links */}
-              <a
+              <a data-aos="fade-down"
                 href="/"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                 aria-current="page"
               >
                 Home
               </a>
-              <a
+              <a data-aos="fade-down"
                 href="#About"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
                 About
               </a>
-              <a
+              <a data-aos="fade-down"
                 href="#Consultores"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
                 Our Brokers
               </a>
-              <a
+              <a data-aos="fade-down"
                 href="#Opinioes"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
@@ -69,7 +75,7 @@ const NavBar = () => {
                   {/* Profile dropdown */}
                   <div className="relative ml-3">
                     <div>
-                      <button
+                      <button data-aos="fade-down"
                         type="button"
                         className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                         id="user-menu-button"
@@ -124,9 +130,19 @@ const NavBar = () => {
                 </div>
               ) : (
                 // Se o usuário não estiver logado, mostra o botão de login
-  <button
+  <button data-aos="fade-down"
     onClick={navegar_para_login}
-    className="relative inline-flex items-center justify-center p-0.5 mb-2 mt-3 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
+    className="
+    relative inline-flex items-center justify-center 
+    p-1 sm:p-0.5 mb-2 mt-3 me-2 
+    overflow-hidden text-xs sm:text-sm font-medium 
+    text-gray-900 rounded-lg group 
+    bg-gradient-to-br from-purple-500 to-pink-500 
+    group-hover:from-purple-500 group-hover:to-pink-500 
+    hover:text-white dark:text-white 
+    focus:ring-4 focus:outline-none 
+    focus:ring-purple-200 dark:focus:ring-purple-800
+  "
   >
     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
       Register / Login

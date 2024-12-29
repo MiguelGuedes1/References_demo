@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/firebaseConfig';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -8,6 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import assets from "../assets/assets";
 import { Building, Handshake, Euro } from 'lucide-react';
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 const Registo = () => {
   const [username, setUsername] = useState('');
@@ -80,12 +82,16 @@ const Registo = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
-  };
+  }
+
+        useEffect(() => {
+          Aos.init({duration:1000})
+        },[])
 
   return (
 
 
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center px-4 sm:px-0">
+    <div data-aos="fade-down"  className="min-h-screen bg-gray-100 text-gray-900 flex justify-center px-4 sm:px-0">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 flex-col sm:flex-row">
 
         {/* Info Section  */}

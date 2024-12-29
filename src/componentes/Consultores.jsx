@@ -1,6 +1,9 @@
+import React, { useRef, useState,useEffect } from "react";
 import { Link } from 'react-router-dom';
 import assets from "../assets/assets";
 import { Instagram, Facebook, Linkedin } from 'lucide-react';
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 const Consultores = () => {
   const consultores = [
@@ -54,8 +57,12 @@ const Consultores = () => {
     },
   ];
 
+    useEffect(() => {
+      Aos.init({duration:1000})
+    },[])
+
   return (
-    <section id="Consultores" className="bg-white dark:bg-gray-900">
+    <section data-aos="fade-up"  id="Consultores" className="bg-white dark:bg-gray-900">
       <div className="container px-6 py-10 mx-auto">
         <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
           Meet Our Expert Real Estate Consultants

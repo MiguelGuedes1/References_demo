@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useRef, useState,useEffect } from "react";
+import Aos from "aos"
+import 'aos/dist/aos.css'
 
 const About = () => {
+
+      useEffect(() => {
+        Aos.init({duration:1000})
+      },[])
+
+
   return (
     <section id='About' className="py-24 relative xl:mr-0 lg:mr-5 mr-0">
       <div className="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
         <div className="w-full justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
-          <div className="w-full flex-col justify-center lg:items-start items-center gap-10 inline-flex">
+
+          <div data-aos="fade-right" className="w-full flex-col justify-center lg:items-start items-center gap-10 inline-flex">
             <div className="w-full flex-col justify-center items-start gap-8 flex">
               <div className="flex-col justify-start lg:items-start items-center gap-4 flex">
                 <h6 className="text-gray-400 text-base font-normal leading-relaxed">About Us</h6>
@@ -43,7 +52,7 @@ const About = () => {
             </div>
             
           </div>
-          <div className="w-full lg:justify-start justify-center items-start flex">
+          <div data-aos="fade-left" className="w-full lg:justify-start justify-center items-start flex">
             <div className="sm:w-[564px] w-full sm:h-[646px] h-full sm:bg-gray-100 rounded-3xl sm:border border-gray-200 relative">
               <img
                 className="sm:mt-5 sm:ml-5 w-full h-full rounded-3xl object-cover"
