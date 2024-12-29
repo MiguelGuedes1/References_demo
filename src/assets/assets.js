@@ -10,6 +10,19 @@ import login_wallpaper from './login_wallpaper.webp';
 import videoo_fundo from './videoo_fundo.mp4'
 import logo_invictus_semfundo_1 from './logo_invictus_semfundo_1.png';
 import escritorio from './escritorio.jpg';
+import userprofile from './userprofile.avif';
+import foto_opiniao_1 from './foto_opiniao_1.jpg';
+import foto_opiniao_2 from './foto_opiniao_2.avif';
+import foto_opiniao_3 from './foto_opiniao_3.jpg';
+import foto_opiniao_4 from './foto_opiniao_4.jpg';
+import foto_opiniao_5 from './foto_opiniao_5.jpg';
+import foto_opiniao_6 from './foto_opiniao_6.avif';
+import foto_opiniao_7 from './foto_opiniao_7.jpg';
+import foto_opiniao_8 from './foto_opiniao_8.avif';
+import foto_opiniao_9 from './foto_opiniao_9.avif';
+import foto_opiniao_10 from './foto_opiniao_10.jpg';
+import foto_opiniao_11 from './foto_opiniao_11.avif';
+import foto_opiniao_12 from './foto_opiniao_12.avif';
 
 
 
@@ -27,7 +40,22 @@ const assets = {
   login_wallpaper,
   videoo_fundo,
   logo_invictus_semfundo_1,
-  escritorio
+  escritorio,
+  userprofile,
+  foto_opiniao_1,
+  foto_opiniao_2,
+  foto_opiniao_3,
+  foto_opiniao_4,
+  foto_opiniao_5,
+  foto_opiniao_6,
+  foto_opiniao_7,
+  foto_opiniao_8,
+  foto_opiniao_9,
+  foto_opiniao_10,
+  foto_opiniao_11,
+  foto_opiniao_12,
+
+  
 
 }
 

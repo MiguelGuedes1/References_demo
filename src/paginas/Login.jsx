@@ -6,6 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { User, Home,Euro } from 'lucide-react';
 import assets from "../assets/assets";
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebaseConfig'
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -39,7 +42,7 @@ const Login = () => {
       const signInResult = await signInWithEmailAndPassword(email, password);
       if (signInResult.user) {
         const toastId = toast.loading('Checking your credentials ...');
-        
+  
         setTimeout(() => {
           toast.update(toastId, {
             render: 'Login successful, enjoy!',
@@ -49,8 +52,29 @@ const Login = () => {
           });
         }, 1000); // Delay para criar um efeito mais fluido
   
-        setTimeout(() => {
-          navigate('/'); // Navega após o toast concluir
+        setTimeout(async () => {
+          // Verifique a role do usuário no Firestore após o login
+          const userDocRef = doc(db, 'users', signInResult.user.uid);
+          const userDoc = await getDoc(userDocRef);
+  
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            console.log('User Data:', userData); // Log para verificar os dados do usuário
+  
+            // Verificar se a role existe. Se não, atribui 'user' como padrão
+            const userRole = userData.role || 'user'; // Se não existir, atribui 'user' como padrão
+            
+            // Se o usuário for um administrador, redireciona para a página Login_Admin
+            if (userRole === 'admin') {
+              console.log('User is Admin, redirecting to Login_Admin...');
+              navigate('/Login_Admin'); // Página do administrador
+            } else {
+              console.log('User is a regular user, redirecting to Home...');
+              navigate('/'); // Página padrão para usuários comuns
+            }
+          } else {
+            toast.error('User data not found in the database.');
+          }
         }, 3500); // 3 segundos para o toast desaparecer completamente
       }
     } catch (err) {

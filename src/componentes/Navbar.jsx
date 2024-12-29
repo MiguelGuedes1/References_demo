@@ -2,6 +2,7 @@ import { useState,useContext } from "react";
 import { Menu, X } from "lucide-react"; 
 import { useNavigate,Link} from "react-router-dom";
 import AuthContext from '../contexts/AuthContext';
+import assets from "../assets/assets";
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,10 +53,10 @@ const NavBar = () => {
                 Our Brokers
               </a>
               <a
-                href="#"
+                href="#Opinioes"
                 className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
-                Calendar
+                Clients
               </a>
             </div>
           </div>
@@ -79,8 +80,8 @@ const NavBar = () => {
                         <span className="absolute -inset-1.5"></span>
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="size-10 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          className="size-9 rounded-full"
+                          src={assets.userprofile}
                           alt="User Profile"
                         />
                       </button>
@@ -184,10 +185,10 @@ const NavBar = () => {
               Our Brokers
             </a>
             <a
-              href="#"
+              href="#Opinioes"
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
             >
-              Calendar
+              Clients
             </a>
           </div>
         </div>

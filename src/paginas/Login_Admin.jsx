@@ -103,10 +103,10 @@ const LoginAdmin = () => {
             {references.map((ref) => (
               <div key={ref.id} className="p-6 bg-white rounded-lg shadow-lg border border-gray-300">
                 <p className="text-gray-600 mb-2 text-sm">
-                <UserSearch className="inline mr-2 text-indigo-500" /><strong>Email Utilizador:</strong> {userDetails.uid|| 'Não disponível'}
+                <UserSearch className="inline mr-2 text-indigo-500" /><strong>Email Utilizador:</strong> {ref. Email_utilizador|| 'Não disponível'}
                 </p>
                 <p className="text-gray-600 mb-2 text-sm">
-                <UserSearch className="inline mr-2 text-indigo-500" /><strong>Username Utilizador:</strong> {userDetails.uid|| 'Não disponível'}
+                <UserSearch className="inline mr-2 text-indigo-500" /><strong>Username Utilizador:</strong> {ref.Referencia_enviada_por|| 'Não disponível'}
                 </p>
                 <p className="text-gray-600 mb-2 text-sm">
                   <CircleUserRound className="inline mr-2 text-indigo-500" /><strong>Nome da referência:</strong> {ref.nomeReferencia}

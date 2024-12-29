@@ -230,7 +230,7 @@ const DetalhesConsultor = () => {
                                         <p className="flex items-center mb-6">
                                         <Phone className="text-indigo-600 w-6 h-6 sm:w-6 sm:h-6" />
                                             <h5 className="text-black text-sm font-semibold leading-6 ml-5">
-                                                227538978
+                                                22 319 2844
                                             </h5>
                                         </p>
 
@@ -244,7 +244,7 @@ const DetalhesConsultor = () => {
                                         <p className="flex items-center">
                                         <MapPinHouse className="text-indigo-600 w-6 h-6 sm:w-6 sm:h-6"  />
                                             <h5 className="text-black text-sm font-semibold leading-6 ml-5">
-                                                654 Sycamore Avenue, Meadowville, WA 76543
+                                            R. da Boavista 865, 4050-111 Porto
                                             </h5>
                                         </p>
 
