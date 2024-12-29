@@ -1,6 +1,6 @@
 import React, { useRef, useState,useEffect } from "react";
 import { Link } from 'react-router-dom';
-import assets from "../assets/assets";
+import assets from "../assets/assets"
 import { Instagram, Facebook, Linkedin } from 'lucide-react';
 import Aos from "aos"
 import 'aos/dist/aos.css'

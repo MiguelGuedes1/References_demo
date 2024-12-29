@@ -23,6 +23,7 @@ import foto_opiniao_9 from './foto_opiniao_9.avif';
 import foto_opiniao_10 from './foto_opiniao_10.jpg';
 import foto_opiniao_11 from './foto_opiniao_11.avif';
 import foto_opiniao_12 from './foto_opiniao_12.avif';
+import about_image from './about_image.jpg';
 
 
 
@@ -54,6 +55,7 @@ const assets = {
   foto_opiniao_10,
   foto_opiniao_11,
   foto_opiniao_12,
+  about_image,
 
   
 

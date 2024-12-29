@@ -50,7 +50,7 @@ const Login = () => {
             render: 'Login successful, enjoy!',
             type: 'success',
             isLoading: false,
-            autoClose: 2000,
+            autoClose: 3500,
           });
         }, 1000); // Delay para criar um efeito mais fluido
   
@@ -77,7 +77,7 @@ const Login = () => {
           } else {
             toast.error('User data not found in the database.');
           }
-        }, 3500); // 3 segundos para o toast desaparecer completamente
+        }, 3300); // 3 segundos para o toast desaparecer completamente
       }
     } catch (err) {
       toast.error('Email or Password are incorrect, please try again');
