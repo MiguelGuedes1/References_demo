@@ -32,6 +32,7 @@ const Header = () => {
         autoPlay
         loop
         muted
+        playsInline // Importante para dispositivos móveis
       ></video>
 
 
