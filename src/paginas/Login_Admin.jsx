@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase/firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { db,auth } from '../firebase/firebaseConfig';
 import AuthContext from '../contexts/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import Footer from '../componentes/Footer';
 import Navbar from '../componentes/Navbar';
-import { CheckCircle, XCircle, Clock, MapPin, MessageSquare, Phone, Info, FileText, House, CircleUserRound, UserSearch, CalendarDays, Handshake,Mail,UserPen } from 'lucide-react'
+import { CheckCircle, XCircle, Clock, MapPin, MessageSquare, Phone, Info, FileText, House, CircleUserRound, UserSearch, CalendarDays, Handshake,Mail,UserPen,LogOut  } from 'lucide-react'
 import Aos from "aos"
 import 'aos/dist/aos.css'
+import { useNavigate } from 'react-router-dom'
 
 const LoginAdmin = () => {
   const [references, setReferences] = useState([]);
@@ -15,6 +17,7 @@ const LoginAdmin = () => {
   const [loading, setLoading] = useState(true);
   const [editState, setEditState] = useState('');
   const [selectedReference, setSelectedReference] = useState(null);
+  const navigate=useNavigate()
 
   useEffect(() => {
     const fetchReferences = async () => {
@@ -27,7 +30,12 @@ const LoginAdmin = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        
+        // Ordenar por `createdAt` (mais recente primeiro)
+        fetchedReferences.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+        
         setReferences(fetchedReferences);
+        
       } catch (error) {
         console.error('Erro ao buscar referências:', error);
       } finally {
@@ -61,6 +69,15 @@ const LoginAdmin = () => {
     }
   }
 
+  const handleLogout = async () => {      // Funçao para efectuar o Logout
+    try {
+      await signOut(auth);
+      navigate('/');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
+  };
+
 
       useEffect(() => {
         Aos.init({duration:1000})
@@ -69,6 +86,17 @@ const LoginAdmin = () => {
 
   return (
     <div data-aos="fade-down" className="w-full min-h-screen bg-gray-100">
+      <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-lg shadow-lg p-4 flex justify-between items-center text-white">
+      <p data-aos="fade-down" className="text-white font-bold hidden sm:block">Invictus | References</p>
+        <button data-aos="fade-down" 
+          onClick={handleLogout}
+          className="flex items-center gap-2 bg-indigo-800 hover:bg-indigo-900 px-4 py-2 rounded-md text-sm"
+        >
+          <LogOut size={15} />
+          Logout
+        </button>
+      </nav>
+
 
       {/* Information Section */}
       <section className="py-14 px-6 lg:px-16 bg-white">
@@ -130,9 +158,12 @@ const LoginAdmin = () => {
                 <p className="text-gray-600 mb-2 text-sm">
                   <UserPen className="inline mr-2 text-indigo-500" /><strong>Real estate consultant:</strong> {ref.Referencia_para_Consultor}
                 </p>
+
                 <p className="text-gray-600 mb-2 text-sm">
-                  <CalendarDays className="inline mr-2 text-indigo-500" /><strong>Date sent:</strong> {new Date(ref.createdAt.seconds * 1000).toLocaleDateString('pt-PT')}
+                <CalendarDays className="inline mr-2 text-indigo-500" />
+                 <strong>Date sent:</strong> {new Date(ref.createdAt.seconds * 1000).toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short', hour12: false })}
                 </p>
+
                 
                 <p className="text-gray-600 mb-2 text-sm flex">
                   <Handshake className="inline mr-2 text-indigo-500" /><strong>Status: </strong> 

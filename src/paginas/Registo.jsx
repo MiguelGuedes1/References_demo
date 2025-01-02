@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/firebaseConfig';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -8,14 +8,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import assets from "../assets/assets";
 import { Building, Handshake, Euro } from 'lucide-react';
-import Aos from "aos"
-import 'aos/dist/aos.css'
+import Aos from "aos";
+import 'aos/dist/aos.css';
 
 const Registo = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
   const navigate = useNavigate();
 
   const [createUserWithEmailAndPassword, userCredential, loading, error] = useCreateUserWithEmailAndPassword(auth);
@@ -25,13 +27,20 @@ const Registo = () => {
       return 'All fields are required.';
     }
     if (password.length < 6) {
+      passwordRef.current.focus();
+      setPassword('');
+      setConfirmPassword('');
       return 'Password must be at least 6 characters long.';
     }
     if (password !== confirmPassword) {
+      confirmPasswordRef.current.focus();
+      setConfirmPassword('');
       return 'Passwords do not match.';
     }
     return null;
-  };
+  }
+
+  
 
   const criarUtilizador = async (e) => {
     e.preventDefault();
@@ -61,6 +70,12 @@ const Registo = () => {
           autoClose: 2000,
         });
 
+        // Limpar os campos após criar o usuário
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+
         setTimeout(() => {
           navigate('/login');
         }, 2000);
@@ -78,23 +93,17 @@ const Registo = () => {
 
   const handleSubmit = (e) => {
     criarUtilizador(e);
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-  }
+  };
 
-        useEffect(() => {
-          Aos.init({duration:1000})
-        },[])
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
 
   return (
-
-
-    <div data-aos="fade-down"  className="min-h-screen bg-gray-100 text-gray-900 flex justify-center px-4 sm:px-0">
+    <div data-aos="fade-down" className="min-h-screen bg-gray-100 text-gray-900 flex justify-center px-4 sm:px-0">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 flex-col sm:flex-row">
 
-        {/* Info Section  */}
+        {/* Info Section */}
         <div className="w-full sm:w-1/2 text-center flex flex-col justify-center items-center p-8 sm:p-12">
           <h1 className="text-xl sm:text-2xl font-bold text-indigo-700 mb-4">Welcome to Invictus | References</h1>
           <p className="text-sm md:text-sm text-gray-800 mb-4">
@@ -116,11 +125,10 @@ const Registo = () => {
           </div>
         </div>
 
-
-        {/* Form Section (abaixo no mobile) */}
+        {/* Form Section */}
         <div className="w-full sm:w-1/2 xl:w-5/12 p-8 sm:p-12 flex flex-col justify-center">
           <div className="flex justify-center items-center ">
-          <img className='w-[6.5rem] hidden md:flex'  src={assets.logo_invictus_semfundo_1} alt="logo_invictus" />
+            <img className='w-[6.5rem] hidden md:flex' src={assets.logo_invictus_semfundo_1} alt="logo_invictus" />
           </div>
 
           <div className="mt-8 flex flex-col items-center">
@@ -146,6 +154,7 @@ const Registo = () => {
                     required
                   />
                   <input
+                    ref={passwordRef}
                     className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-[13px] focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
                     type="password"
                     placeholder="Password"
@@ -154,6 +163,7 @@ const Registo = () => {
                     required
                   />
                   <input
+                    ref={confirmPasswordRef}
                     className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-[13px] focus:outline-none focus:border-indigo-500 focus:bg-white mb-4"
                     type="password"
                     placeholder="Confirm Password"

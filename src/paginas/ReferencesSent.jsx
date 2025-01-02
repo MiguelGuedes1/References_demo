@@ -30,6 +30,10 @@ const ReferencesSent = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        
+        // Ordenar por `createdAt` (mais recente primeiro)
+        fetchedReferences.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+        
         setReferences(fetchedReferences);
       } catch (error) {
         console.error('Erro ao buscar referências:', error);
@@ -52,9 +56,11 @@ const ReferencesSent = () => {
 
       <div className='bg-white'>
         
-        <div onClick={(e) => navigate("/")} className='mt-5 ml-5 cursor-pointer'>
-        <CircleArrowLeft className='text-indigo-600 size-7'/> 
-        </div>
+      <button onClick={() => navigate('/')} type="button" class=" m-3 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 text-[13px]">
+        Home
+        </span>
+      </button>
 
       </div>
 
@@ -122,7 +128,8 @@ const ReferencesSent = () => {
                   <UserSearch className="inline mr-2 text-indigo-500" /><strong>Real estate consultant:</strong> {ref.Referencia_para_Consultor}
                 </p>
                 <p className="text-gray-600 mb-2 text-sm">
-                  <CalendarDays className="inline mr-2 text-indigo-500" /><strong>Date sent:</strong> {new Date(ref.createdAt.seconds * 1000).toLocaleDateString('pt-PT')}
+                  <CalendarDays className="inline mr-2 text-indigo-500" />
+                  <strong>Date sent:</strong> {new Date(ref.createdAt.seconds * 1000).toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short', hour12: false })}
                 </p>
                 <p className="text-gray-600 mb-2 text-sm flex ">
                   <Handshake className="inline mr-2 text-indigo-500" /><strong>Status:</strong> <p className='pl-1 font-extrabold text-green-500'>{ref.Estado_Da_referencia}</p>

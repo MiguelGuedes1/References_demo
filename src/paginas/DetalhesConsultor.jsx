@@ -3,7 +3,7 @@ import assets from "../assets/assets"
 import { useNavigate } from 'react-router-dom'
 import Footer from '../componentes/Footer'
 import React,{useEffect,useState,useContext } from 'react'
-import { Phone, Mail, MapPinHouse } from 'lucide-react'
+import { Phone, Mail, MapPinHouse,House } from 'lucide-react'
 import { collection, addDoc } from "firebase/firestore" // Importa funções necessárias do Firestore
 import { auth } from '../firebase/firebaseConfig'
 import { db } from '../firebase/firebaseConfig'
@@ -73,6 +73,8 @@ const DetalhesConsultor = () => {
         setLocalizacao("");
         setContacto("");
         setMensagem("");
+   
+
         
         toast.update(toastId, {
         render: 'Referral sent, check your status in referral sent on your profile',
@@ -80,6 +82,10 @@ const DetalhesConsultor = () => {
         isLoading: false,
         autoClose: 4000,
         })
+
+        setTimeout(() => {
+            navigate('/');
+        }, 4000);
 
     } catch (error) {
         
@@ -185,6 +191,12 @@ const DetalhesConsultor = () => {
     <div className="consultor-details">
 
         <section data-aos="fade-down"  class="bg-white dark:bg-gray-900">
+        <button onClick={() => navigate('/')} type="button" class=" m-3 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+        Home
+        </span>
+        </button>
+       
             <div class="container px-6 py-10 mx-auto">
                 <div class="lg:-mx-6 lg:flex lg:items-center">
                     <img class="object-cover object-center lg:w-1/2 lg:mx-6 w-full h-96 rounded-lg md:h-[35rem] lg:h-[46rem]" src={consultor.imagem} target="blank" alt=""/>
@@ -204,7 +216,7 @@ const DetalhesConsultor = () => {
                         <p data-aos="fade-right" class="text-gray-600 dark:text-gray-300">{consultor.funcao}</p>
 
                         <div class="flex items-center justify-between mt-12 lg:justify-start">
-                        <button   onClick={() => navigate('/')} type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Home</button>
+                  
                         </div>
                             </div>
                         </div>
@@ -342,13 +354,34 @@ const DetalhesConsultor = () => {
                                     onChange={(e) => setMensagem(e.target.value)}
                                 />
                             </div>
-
-                            <button
+                            {user? 
+                            
+                            <button data-aos="fade-down"
                                 type="submit"
                                 className="w-full h-10 text-white text-sm font-semibold leading-6 rounded-full transition-all duration-700 hover:bg-indigo-800 bg-indigo-600 shadow-sm"
                             >
                                 Send Reference
-                            </button>
+                            </button> 
+                            : 
+                             <button data-aos="fade-down"
+                                onClick={(e) => navigate('/login')}
+                                className="
+                                relative inline-flex items-center justify-center 
+                                p-1 sm:p-0.5 mb-2 mt-3 me-2 
+                                overflow-hidden text-xs sm:text-sm font-medium 
+                                text-gray-900 rounded-lg group 
+                                bg-gradient-to-br from-purple-500 to-pink-500 
+                                group-hover:from-purple-500 group-hover:to-pink-500 
+                                hover:text-white dark:text-white 
+                                focus:ring-4 focus:outline-none 
+                                focus:ring-purple-200 dark:focus:ring-purple-800
+                            "
+                            >
+                                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                Register / Login
+                                </span>
+                            </button>}
+                     
                         </form>
 
                     </div>
