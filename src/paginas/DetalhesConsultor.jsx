@@ -22,8 +22,35 @@ const DetalhesConsultor = () => {
   const [localizacao,setLocalizacao] = useState("")
   const [contacto,setContacto] = useState("")
   const [mensagem,setMensagem] = useState("")
+  const [isLocationValid, setIsLocationValid] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { user, loading, handleLogout, userDetails } = useContext(AuthContext)
+
+  // Funçao para verificar se a localizaçao que o utilizador insere existe efectivamente
+
+  const handleLocationValidation = async (location) => {
+    const API_KEY = "9a71e201683f44c8a47366b44abe3f6d"; // Substitua pela sua API Key
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(location)}&key=${API_KEY}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.results && data.results.length > 0) {
+            setIsLocationValid(true);
+            setErrorMessage("");
+        } else {
+            setIsLocationValid(false);
+            setErrorMessage("Invalid location. Please enter a valid address.");
+        }
+    } catch (error) {
+        console.error("Error validating location:", error);
+        setIsLocationValid(false);
+        setErrorMessage("Error verifying location. Please try again.");
+    }
+}
+
+  // Fim da Funçao para verificar se a localizaçao que o utilizador insere existe efectivamente
 
   
 
@@ -44,6 +71,11 @@ const DetalhesConsultor = () => {
         !mensagem.trim()
     ) {
         toast.error("Please fill in all fields")
+        return;
+    }
+
+    if (!isLocationValid) {
+        toast.error("Please enter a valid location");
         return;
     }
 
@@ -314,18 +346,25 @@ const DetalhesConsultor = () => {
                             </div>
 
                             <div className="mb-6">
-                                <label className="text-gray-700 text-sm font-medium mb-2 block" htmlFor="location">
-                                    Location
-                                </label>
-                                <input
-                                    id="location"
-                                    type="text"
-                                    className="w-full h-8 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-sm font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4"
-                                    placeholder="Property Location"
-                                    value={localizacao}
-                                    onChange={(e) => setLocalizacao(e.target.value)}
-                                />
-                            </div>
+                            <label htmlFor="location" className="text-gray-700 text-sm font-medium mb-2 block">
+                                Location
+                            </label>
+                            <input
+                                id="location"
+                                type="text"
+                                className={`w-full h-8 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-sm font-normal leading-7 rounded-full border ${
+                                    isLocationValid ? "border-gray-200" : "border-red-500"
+                                } focus:outline-none pl-4`}
+                                placeholder="Property Location"
+                                value={localizacao}
+                                onChange={(e) => setLocalizacao(e.target.value)} // Apenas atualiza o estado sem validar
+                                onBlur={(e) => handleLocationValidation(e.target.value)} // Valida ao desfocar o input
+                            />
+                            
+                            {!isLocationValid && (
+                                <p className="text-red-500 text-[10px] mt-2">{errorMessage}</p>
+                            )}
+                        </div>
 
                             <div className="mb-6">
                                 <label className="text-gray-700 text-sm font-medium mb-2 block" htmlFor="contact">
