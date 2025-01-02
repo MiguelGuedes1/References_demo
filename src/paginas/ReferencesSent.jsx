@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase/firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { db,auth } from '../firebase/firebaseConfig';
 import AuthContext from '../contexts/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import Footer from '../componentes/Footer';
 import Navbar from '../componentes/Navbar';
-import { CheckCircle, XCircle, Clock, MapPin, MessageSquare, Phone, Info, FileText,House,CircleUserRound,UserSearch,CalendarDays,Handshake,CircleArrowLeft } from 'lucide-react'
+import { CheckCircle, XCircle, Clock, MapPin, MessageSquare, Phone, Info, FileText,House,CircleUserRound,UserSearch,CalendarDays,Handshake,CircleArrowLeft,LogOut,Home  } from 'lucide-react'
 import { useNavigate,Link} from "react-router-dom"
 import Aos from "aos"
 import 'aos/dist/aos.css'
@@ -45,6 +46,15 @@ const ReferencesSent = () => {
     fetchReferences();
   }, [user, userDetails])
 
+    const handleLogout = async () => {      // Funçao para efectuar o Logout
+      try {
+        await signOut(auth);
+        navigate('/');
+      } catch (error) {
+        console.error('Erro ao fazer logout:', error);
+      }
+    };
+
     useEffect(() => {
       Aos.init({duration:1000})
     },[])
@@ -56,11 +66,28 @@ const ReferencesSent = () => {
 
       <div className='bg-white'>
         
-      <button onClick={() => navigate('/')} type="button" class=" m-3 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 text-[13px]">
-        Home
-        </span>
-      </button>
+      <nav className="fixed top-0 left-0 w-full z-20 bg-gradient-to-b from-black/50 via-black/30 to-transparent backdrop-blur-lg shadow-lg p-4 flex justify-between items-center text-white">
+        {/* Botão Home */}
+        <button
+          data-aos="fade-down"
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-white font-bold text-lg"
+        >
+          <Home size={25} /> {/* Ícone de Home */}
+          <span className='text-[17px]'>Home</span> {/* Texto Home */}
+        </button>
+        
+        {/* Botão Logout */}
+        <button 
+          data-aos="fade-down" 
+          onClick={handleLogout}
+          className="flex items-center gap-2 bg-indigo-800 hover:bg-indigo-900 px-4 py-2 rounded-md text-sm"
+        >
+          <LogOut size={15} />
+          Logout
+        </button>
+      </nav>
+
 
       </div>
 
@@ -69,7 +96,7 @@ const ReferencesSent = () => {
       {/* Information Section */}
       <section className="py-20 px-6 lg:px-16 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-semibold text-indigo-600 mb-4">How does the process work?</h2>
+          <h2 className="text-2xl font-semibold text-indigo-600 mb-4 mt-7">How does the process work?</h2>
           <p className="text-sm text-gray-600 mb-8">
           Our consultants will examine each reference in detail, taking into account all the important aspects to ensure the best possible analysis. Track the status of your references directly here.
           </p>
